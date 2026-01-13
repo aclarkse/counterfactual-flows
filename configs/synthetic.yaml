@@ -1,0 +1,33 @@
+dataset:
+  name: "synthetic_sfm"
+  sensitive_attribute: "X"
+  confounders: ["Z"]
+  mediators: ["W1", "W2"]
+  target: "Y"
+  test_size: 0.2
+
+models:
+  flow:
+    transforms: 5
+    hidden_features: [64, 64]
+    epochs: 200
+    lr: 0.001
+  
+  # Shared settings for all outcome models
+  outcome_params:
+    surrogate_hidden: [64, 32]
+    surrogate_epochs: 200
+
+  # list of model types to run
+  model_types_to_run: 
+    - "LogisticRegression"
+    - "RandomForest"
+    - "GradientBoosting"
+    - "NeuralNet"
+
+recourse:
+  target_prob: 0.7
+  lambda_cost: 0.1
+  lambda_fair: 1.0
+  n_steps: 150
+  lr: 0.1

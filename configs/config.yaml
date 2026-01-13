@@ -1,0 +1,18 @@
+defaults:
+  - model: rf
+  - recourse: default
+  - _self_
+
+seed: 42
+device: cuda
+
+data:
+  dataset: synthetic
+  n_samples: 5000
+  test_size: 0.2
+  minority_ratio: 0.3
+
+wandb:
+  project: fairness-recourse
+  entity: your-username
+  mode: online  # or "disabled" for debugging
