@@ -1,5 +1,5 @@
-# Counterfactual Flows – requirements.txt
-# Core data / config
+# to activate type 'venv\Scripts\activate'
+
 numpy>=1.26
 pandas>=2.1
 pyarrow>=14.0
@@ -7,17 +7,16 @@ scikit-learn>=1.3
 joblib>=1.3
 PyYAML>=6.0.1
 typer>=0.12.0
-
-# Modeling (flows + torch)
-# ⚠️ Install the appropriate PyTorch wheel for your platform/CUDA.
-# See: https://pytorch.org/get-started/locally/
-torch>=2.3
 zuko>=1.1.0
-
-# Metrics (distribution shift)
-scipy>=1.11  # KS and Wasserstein; code falls back if missing
-
-# Optional / nice-to-have
-# nflows>=0.14.0   # only if you want to try the legacy nflows implementation
-# matplotlib>=3.8  # plotting in notebooks
-# jupyterlab>=4.0  # interactive exploration
+wandb>=0.16.0
+hydra-core>=1.3.0
+omegaconf>=2.3.0 
+scipy>=1.11
+nflows>=0.14.0
+matplotlib>=3.8
+seaborn>=0.13.0
+jupyterlab>=4.0
+tqdm>=4.66.0
+black>=24.0
+pytest>=8.0
+pre-commit>=3.6
