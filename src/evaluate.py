@@ -5,9 +5,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from typing import Dict, List, Tuple, Any
-
-from .schemas import load_schema
-from .datasets import load_dataframe
+from .data import load_dataframe, load_schema
 
 # --- Optional SciPy (preferred); fall back to NumPy-only if missing ----
 try:
@@ -19,6 +17,7 @@ except Exception:
 def _wasserstein_1d(a: np.ndarray, b: np.ndarray) -> float:
     """Fallback Wasserstein-1 (a.k.a. Earth Mover) for 1D if SciPy is unavailable."""
     if _HAS_SCIPY:
+        from scipy.stats import wasserstein_distance
         return float(wasserstein_distance(a, b))
     # NumPy-only: sort and average absolute CDF diff (quantile coupling)
     a = np.sort(a.astype(np.float64))
@@ -34,6 +33,7 @@ def _wasserstein_1d(a: np.ndarray, b: np.ndarray) -> float:
 def _ks_1d(a: np.ndarray, b: np.ndarray) -> float:
     """Fallback Kolmogorov–Smirnov statistic for 1D if SciPy is unavailable."""
     if _HAS_SCIPY:
+        from scipy.stats import ks_2samp
         return float(ks_2samp(a, b, alternative="two-sided", mode="auto").statistic)
     # NumPy-only KS: empirical CDF sup norm
     a = np.sort(a.astype(np.float64))
@@ -122,13 +122,13 @@ def _groupwise_shift(
     success_idx = [i for i, L in enumerate(cf_list) if L]
     groups = need_df[sensitive_col].astype(str).values if sensitive_col else np.array(["all"] * len(need_df))
 
-    for g in np.unique(groups):
+    for g in np.unique(np.asarray(groups)):
         mask = (groups == g)
         if not np.any(mask):
             continue
 
         # BEFORE: original W values for this group
-        before_g = {w: need_df.loc[mask, w].to_numpy(dtype=float) for w in w_cols}
+        before_g = {w: np.asarray(need_df.loc[mask, w], dtype=float) for w in w_cols}
 
         # AFTER: top-1 W' only for successful instances within this group
         after_g = {w: [] for w in w_cols}
