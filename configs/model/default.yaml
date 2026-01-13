@@ -1,0 +1,27 @@
+# Default Models Configuration
+# configs/models/default.yaml
+# 
+# This file specifies which models to train and their shared settings.
+# Individual model configs (logistic.yaml, rf.yaml, etc.) contain model-specific params.
+
+# List of models to train (must match filenames in configs/models/)
+models_to_run:
+  - logistic
+  - mlp
+  - rf
+  - gbt
+
+# Shared settings across all models
+shared:
+  random_state: 42
+  
+# Default surrogate settings (can be overridden per model)
+default_surrogate:
+  hidden_dims: [64, 32]
+  dropout: 0.1
+  activation: "relu"
+  
+default_training:
+  n_epochs: 200
+  lr: 0.001
+  batch_size: 256

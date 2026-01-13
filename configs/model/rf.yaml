@@ -1,0 +1,30 @@
+# Random Forest Model Configuration
+# configs/models/rf.yaml
+
+name: "Random Forest"
+type: "rf"
+
+# Sklearn RandomForestClassifier parameters
+sklearn:
+  n_estimators: 100           # Number of trees
+  max_depth: 10               # Maximum depth of trees (null for unlimited)
+  min_samples_split: 2        # Minimum samples to split a node
+  min_samples_leaf: 1         # Minimum samples at a leaf node
+  max_features: "sqrt"        # Features to consider: 'sqrt', 'log2', int, float, null
+  bootstrap: true             # Whether to use bootstrap samples
+  oob_score: false            # Whether to use out-of-bag samples for accuracy
+  class_weight: null          # null or 'balanced' or 'balanced_subsample'
+  n_jobs: -1                  # Parallel jobs (-1 = all processors)
+
+# PyTorch surrogate parameters
+surrogate:
+  hidden_dims: [64, 32]       # Hidden layer dimensions
+  dropout: 0.1                # Dropout rate
+  activation: "relu"          # Activation function
+
+# Surrogate training parameters
+training:
+  n_epochs: 200
+  lr: 0.001
+  batch_size: 256
+  early_stopping: false

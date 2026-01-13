@@ -1,0 +1,31 @@
+# Gradient Boosted Trees Model Configuration
+# configs/models/gbt.yaml
+
+name: "Gradient Boosted Trees"
+type: "gbt"
+
+# Sklearn GradientBoostingClassifier parameters
+sklearn:
+  n_estimators: 100           # Number of boosting stages
+  max_depth: 5                # Maximum depth of trees
+  learning_rate: 0.1          # Shrinks contribution of each tree
+  min_samples_split: 2        # Minimum samples to split a node
+  min_samples_leaf: 1         # Minimum samples at a leaf node
+  subsample: 1.0              # Fraction of samples for fitting trees
+  max_features: null          # Features to consider: 'sqrt', 'log2', int, float, null
+  loss: "log_loss"            # Loss function: 'log_loss', 'exponential'
+  validation_fraction: 0.1    # Fraction for early stopping (if n_iter_no_change set)
+  n_iter_no_change: null      # Iterations with no improvement (null = no early stopping)
+
+# PyTorch surrogate parameters
+surrogate:
+  hidden_dims: [64, 32]       # Hidden layer dimensions
+  dropout: 0.1                # Dropout rate
+  activation: "relu"          # Activation function
+
+# Surrogate training parameters
+training:
+  n_epochs: 200
+  lr: 0.001
+  batch_size: 256
+  early_stopping: false

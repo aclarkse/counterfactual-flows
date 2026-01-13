@@ -1,0 +1,26 @@
+# Logistic Regression Model Configuration
+# configs/models/logistic.yaml
+
+name: "Logistic Regression"
+type: "logistic"
+
+# Sklearn LogisticRegression parameters
+sklearn:
+  max_iter: 1000
+  C: 1.0                    # Inverse regularization strength
+  penalty: "l2"             # Regularization type: 'l1', 'l2', 'elasticnet', 'none'
+  solver: "lbfgs"           # Algorithm: 'lbfgs', 'liblinear', 'newton-cg', 'sag', 'saga'
+  class_weight: null        # null or 'balanced'
+  
+# PyTorch surrogate parameters  
+surrogate:
+  hidden_dims: [64, 32]     # Hidden layer dimensions
+  dropout: 0.1              # Dropout rate
+  activation: "relu"        # Activation function
+
+# Surrogate training parameters
+training:
+  n_epochs: 200
+  lr: 0.001
+  batch_size: 256
+  early_stopping: false
