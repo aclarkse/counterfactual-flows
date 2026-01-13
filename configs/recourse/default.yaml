@@ -1,0 +1,4 @@
+lambda_cost: 0.1
+lambda_fair: 1.0
+n_steps: 100
+lr: 0.1
